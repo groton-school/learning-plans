@@ -42,12 +42,19 @@ async function DynamicContent({ params }: Properties) {
       'NoColor'
     ]) as ('RD' | 'OR' | 'YL' | 'GR' | 'LB' | 'DB' | 'PR' | 'NoColor')[];
 
-    const alerts = await Promise.all(
-      enrollments.map(
-        async (enrollment) =>
-          await Data.Academics.StudentAlerts.read(enrollment.person_id)
+    const alerts = (
+      await Promise.all(
+        enrollments.map(async (enrollment) => {
+          try {
+            return await Data.Academics.StudentAlerts.read(
+              enrollment.person_id
+            );
+          } catch (_) {
+            return undefined;
+          }
+        })
       )
-    );
+    ).filter((alert) => !!alert);
 
     classes.push({
       ...thisClass,
