@@ -69,19 +69,23 @@ async function DynamicContent({ params }: Properties) {
   return (
     <Container>
       <Table striped>
-        <thead>
-          <tr>
-            <th>Name</th>
-            <th>Section</th>
-          </tr>
-        </thead>
-        <tbody>
-          {classes.map((cls) => (
-            <>
+        {classes.map((cls) => (
+          <>
+            <thead>
+              <tr>
+                <th colSpan={2}>
+                  <h2>{cls.description}</h2>
+                </th>
+              </tr>
+              <tr>
+                <th>Student</th>
+                <th>Accommodations</th>
+              </tr>
+            </thead>
+            <tbody>
               {cls.students.map((student) => (
                 <tr>
                   <td>{student.person_name}</td>
-                  <td>{cls.description}</td>
                   <td
                     dangerouslySetInnerHTML={{
                       __html:
@@ -92,9 +96,9 @@ async function DynamicContent({ params }: Properties) {
                   />
                 </tr>
               ))}
-            </>
-          ))}
-        </tbody>
+            </tbody>
+          </>
+        ))}
       </Table>
     </Container>
   );
