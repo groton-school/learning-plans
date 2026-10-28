@@ -1,14 +1,15 @@
+import { getAcademicAlerts } from '@/actions/getAcademicAlerts';
+import { Class, getClass } from '@/actions/getClass';
+import { getStudents, Student } from '@/actions/getStudents';
 import { Loading } from '@/components/Loading';
-import { current_school_year } from '@/lib/current_school_year';
-import { Veracross } from '@/lib/Veracross';
 import { connection } from 'next/server';
 import { Suspense } from 'react';
 import { Container, Table } from 'react-bootstrap';
 
-type PathParameters = { internal_class_id: string };
-type Properties = { params: Promise<PathParameters> };
+type Props = PageProps<'/classes/[internal_class_id]/render'>;
+type ClassAlerts = Class & { students: (Student & { alert?: string })[] };
 
-export default function Page(props: Properties) {
+export default function Page(props: Props) {
   return (
     <Suspense fallback={<Loading caption="Loading learning plans…" />}>
       <DynamicContent {...props} />
@@ -16,49 +17,37 @@ export default function Page(props: Properties) {
   );
 }
 
-async function DynamicContent({ params }: Properties) {
+async function DynamicContent({ params }: Props) {
   await connection();
 
   const internal_class_ids = (await params).internal_class_id
     .split(/-|_| /)
     .map((id) => parseInt(id));
 
-  const classes = [];
+  const classes: ClassAlerts[] = [];
 
-  for (const internal_class_id of internal_class_ids) {
-    const [thisClass, enrollments] = await Promise.all([
-      Veracross.Data.Academics.Classes.read({ id: internal_class_id }),
-      Veracross.Data.Academics.Enrollments.list({
-        query: {
-          internal_class_id,
-          school_year: current_school_year(),
-          currently_enrolled: true
-        }
-      })
-    ]);
+  await Promise.all(
+    internal_class_ids.map(async (internal_class_id) => {
+      const [thisClass, students] = await Promise.all([
+        (await getClass(internal_class_id)) as ClassAlerts,
+        getStudents(internal_class_id)
+      ]);
 
-    const alerts = (
+      thisClass.students = [];
       await Promise.all(
-        enrollments.map(async (enrollment) => {
-          try {
-            return await Veracross.Data.Academics.StudentAlerts.read({
-              person_id: enrollment.person_id
-            });
-          } catch (_) {
-            return undefined;
-          }
+        students.map(async ({ person_id, name }) => {
+          thisClass.students.push({
+            name,
+            ...(await getAcademicAlerts(person_id))
+          });
+          return;
         })
-      )
-    ).filter((alert) => !!alert);
+      );
+      thisClass.students.sort((a, b) => (a.name < b.name ? -1 : 1));
+      classes.push(thisClass);
+    })
+  );
 
-    classes.push({
-      ...thisClass,
-      alerts,
-      students: enrollments.sort((a, b) =>
-        a.person_name < b.person_name ? -1 : 1
-      )
-    });
-  }
   classes.sort((a, b) => (a.description < b.description ? -1 : 1));
   return (
     <Container>
@@ -79,13 +68,10 @@ async function DynamicContent({ params }: Properties) {
             <tbody>
               {cls.students.map((student) => (
                 <tr>
-                  <td>{student.person_name}</td>
+                  <td>{student.name}</td>
                   <td
                     dangerouslySetInnerHTML={{
-                      __html:
-                        cls.alerts.find(
-                          (alert) => alert.id == student.person_id
-                        )?.academic_alert || ''
+                      __html: student.alert || ''
                     }}
                   />
                 </tr>
