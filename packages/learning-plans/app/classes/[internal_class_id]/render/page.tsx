@@ -1,4 +1,4 @@
-import { getAcademicAlert } from '@/actions/getAcademicAlert';
+import { AcademicAlert, getAcademicAlert } from '@/actions/getAcademicAlert';
 import { Class, getClass } from '@/actions/getClass';
 import { getStudents, Student } from '@/actions/getStudents';
 import { Loading } from '@/components/Loading';
@@ -7,7 +7,7 @@ import { Suspense } from 'react';
 import { Container, Table } from 'react-bootstrap';
 
 type Props = PageProps<'/classes/[internal_class_id]/render'>;
-type ClassAlerts = Class & { students: (Student & { alert?: string })[] };
+type ClassAlerts = Class & { students: (Student & AcademicAlert)[] };
 
 export default function Page(props: Props) {
   return (
