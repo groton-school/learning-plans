@@ -1,0 +1,35 @@
+{
+  "name": "@groton/learning-plans",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "next build",
+    "dev": "next dev",
+    "lint": "eslint",
+    "release": "commit-and-tag-version --noBumpWhenEmptyChanges",
+    "start": "next start"
+  },
+  "dependencies": {
+    "@battis/lazy-secrets": "^1.1.2",
+    "@groton/veracross-api": "^0.0.13",
+    "bootstrap": "^5.3.8",
+    "bootstrap-icons": "^1.13.2",
+    "next": "^16.4.3",
+    "openid-client": "^6.8.8",
+    "react": "^19.3.1",
+    "react-bootstrap": "^2.10.10",
+    "react-dom": "19.2.8",
+    "temporal-polyfill": "^1.0.6"
+  },
+  "devDependencies": {
+    "@battis/typescript-tricks": "^0.8.7",
+    "@battis/workspace": "^0.0.12",
+    "@types/bootstrap": "^5.2.11",
+    "@types/node": "^20.19.43",
+    "@types/react": "^19.3.0",
+    "@types/react-dom": "^19.3.0",
+    "typescript": "^5.9.3"
+  },
+  "packageManager": "pnpm@11.23.0"
+}
