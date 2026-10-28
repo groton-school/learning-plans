@@ -1,4 +1,4 @@
-import { getAcademicAlerts } from '@/actions/getAcademicAlerts';
+import { getAcademicAlert } from '@/actions/getAcademicAlert';
 import { Class, getClass } from '@/actions/getClass';
 import { getStudents, Student } from '@/actions/getStudents';
 import { Loading } from '@/components/Loading';
@@ -38,7 +38,7 @@ async function DynamicContent({ params }: Props) {
         students.map(async ({ person_id, name }) => {
           thisClass.students.push({
             name,
-            ...(await getAcademicAlerts(person_id))
+            ...(await getAcademicAlert(person_id))
           });
           return;
         })

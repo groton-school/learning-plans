@@ -89,7 +89,6 @@ export async function run() {
       'automatic-updates': true,
       source: './out',
       'max-instances': maxInstances,
-      memory: '1Gi',
       concurrency,
       'set-env-vars': [
         ['GOOGLE_CLOUD_PROJECT', gcloud.projects.active.getIdentifier()],
