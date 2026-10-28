@@ -74,7 +74,7 @@ async function DynamicContent({ params }: Properties) {
             <thead>
               <tr>
                 <th colSpan={2}>
-                  <h2>{cls.description}</h2>
+                  <h2 className="mt-5">{cls.description}</h2>
                 </th>
               </tr>
               <tr>

@@ -14,9 +14,6 @@ importers:
       '@google-cloud/secret-manager':
         specifier: ^7.0.0
         version: 7.0.0(supports-color@10.2.2)
-      '@groton/colors':
-        specifier: ^0.4.3
-        version: 0.4.3
       bootstrap:
         specifier: ^5.3.8
         version: 5.3.8(@popperjs/core@2.11.8)
@@ -397,9 +394,6 @@ packages:
   '@google-cloud/secret-manager@7.0.0':
     resolution: {integrity: sha512-rviFJl79r/fxeXwDFCIziNGu2ZnQ7zOJJpoOl3AXys21Br8C/x5+18Y7gtOkrwGVrPDvqeDPjtB8yEHiaiS7SA==}
     engines: {node: '>=22'}
-
-  '@groton/colors@0.4.3':
-    resolution: {integrity: sha512-VKVucD52nOAZ/vJiPhF7tajHDVMoeEzb8NFI6xA/H0GK9DXV0s10dC6VNjGEEu1J8uNfnjPYYa5vPeVROoky9A==}
 
   '@grpc/grpc-js@1.14.4':
     resolution: {integrity: sha512-k9Dj3DV/itK9D06Y8f190Qgop7/Ui+D0njFV3LHMPwPT75DpXLQohE9Wmz0QElrJnzsjB7KPWiKJbOl7IPDArQ==}
@@ -1415,8 +1409,8 @@ packages:
     cpu: [x64]
     os: [win32]
 
-  '@vvo/tzdb@6.198.0':
-    resolution: {integrity: sha512-bNRWBhWYl0edVgyX6AYbhoCM2tk2lXJjGCyO2VDc2xn6Dw8dLd7WGj2DDXkVOkmOIQTNjEAcxrEpIzz5pWVwFg==}
+  '@vvo/tzdb@6.201.1':
+    resolution: {integrity: sha512-ib7ymHHyiGD9N/WWGMX5951hmxaFnOP3W8l0ATUxaH0Y/NczPHWS4cQgJUd1S9zyjCq0od8WXxRHlnjlHNPdNg==}
 
   '@xml-tools/parser@1.0.11':
     resolution: {integrity: sha512-aKqQ077XnR+oQtHJlrAflaZaL7qZsulWc/i/ZEooar5JiWj1eLt0+Wg28cpa+XLney107wXqneC+oG1IZvxkTA==}
@@ -4435,8 +4429,6 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  '@groton/colors@0.4.3': {}
-
   '@grpc/grpc-js@1.14.4':
     dependencies:
       '@grpc/proto-loader': 0.8.1
@@ -5346,7 +5338,7 @@ snapshots:
   '@unrs/resolver-binding-win32-x64-msvc@1.12.2':
     optional: true
 
-  '@vvo/tzdb@6.198.0': {}
+  '@vvo/tzdb@6.201.1': {}
 
   '@xml-tools/parser@1.0.11':
     dependencies:
@@ -6759,7 +6751,7 @@ snapshots:
 
   is-timezone@1.0.1:
     dependencies:
-      '@vvo/tzdb': 6.198.0
+      '@vvo/tzdb': 6.201.1
 
   is-typed-array@1.1.15:
     dependencies:
